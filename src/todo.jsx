@@ -2,8 +2,9 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { HiPlus } from "react-icons/hi2";
-import { useEffect } from "react";
+import { HiPlus, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
+import { Delete } from "@mui/icons-material";
+import { Input } from "postcss";
 
 function todo() {
   const [todo, settodo] = useState("");
@@ -16,6 +17,11 @@ function todo() {
   const changeData = (e) => {
     settodo(e.target.value);
   };
+  const deleteitam = (id) => {
+    const fruits = [...data];
+    fruits.splice(id, 1);
+    setData(fruits);
+  };
 
   return (
     <div className="m-5">
@@ -23,26 +29,33 @@ function todo() {
         todo list
       </div>
       <div className="flex justify-center pt-10">
-        <TextField
+        <Input
           type="text"
-          className="w-150"
+          className="float-left"
           onChange={(e) => changeData(e)}
         />
         <Button
           type="submit"
           variant="contained"
           size="large"
+          className="p-5
+          float-right"
           startIcon={<HiPlus />}
           onClick={additam}
         />
       </div>
       {data.map((data, id) => {
         return (
-          <h1
-            key={id}
-            className="text-[24px] text-center pt-5 hover:text-sky-600"
-          >
+          <h1 key={id} index={id} className="text-[24px] flex">
             {data}
+            <Button
+              className="float-left bg-red-700"
+              type="submit"
+              variant="outlined"
+              size="medium"
+              startIcon={<HiOutlineArchiveBoxXMark />}
+              onClick={() => deleteitam(id)}
+            />
           </h1>
         );
       })}
